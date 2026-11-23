@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico</title>
+
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/component.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/historico.css">
+    <script src="./assets/js/historico.js" defer></script>
+</head>
+<body>
+
+<header>
+    <a href="index.html">Home</a>
+    <a href="historico.html">Histórico</a>
+    <a href="ranking.html">Ranking</a>
+    <a href="perfil.html">Perfil</a>
+</header>
+
+<div class="container">
+
+    <nav>
+        <ul class="menu">
+            <li><a href="#">Todos</a></li>
+            <li><a href="/simulados.html?materiaId=1">Português</a></li>
+            <li><a href="/simulados.html?materiaId=2">História</a></li>
+            <li><a href="/simulados.html?materiaId=3">Geografia</a></li>
+            <li><a href="/simulados.html?materiaId=4">Filosofia</a></li>
+            <li><a href="/simulados.html?materiaId=5">Sociologia</a></li>
+            <li><a href="/simulados.html?materiaId=6">Biologia</a></li>
+            <li><a href="/simulados.html?materiaId=7">Física</a></li>
+            <li><a href="/simulados.html?materiaId=8">Química</a></li>
+            <li><a href="/simulados.html?materiaId=9">Matemática</a></li>
+        </ul>
+    </nav>
+
+    <main class="historico-page">
+
+        <section class="resumo">
+
+            <div class="card resumo-card">
+                <h3>Questionários</h3>
+                <p id="totalQuestionarios">-</p>
+            </div>
+
+            <div class="card resumo-card">
+                <h3>Média de Acertos</h3>
+                <p id="mediaAcertos">-</p>
+            </div>
+
+            <div class="card resumo-card">
+                <h3>Tempo Estudado</h3>
+                <p id="tempoEstudado">-</p>
+            </div>
+
+        </section>
+
+        <section class="card historico-lista">
+
+            <h2>Histórico de Questionários</h2>
+
+            <div id="containerTentativas">
+                <p style="padding: 20px; text-align: center; color: #a0aec0;">Carregando histórico...</p>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<footer></footer>
+
+</body>
+</html>

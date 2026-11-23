@@ -1,0 +1,38 @@
+    body { font-family: system-ui, sans-serif; background: #1a202c; color: #fff; padding: 20px; margin: 0; }
+    .container { max-width: 800px; margin: 40px auto; padding: 20px; }
+    
+    .header-simulado { border-bottom: 2px solid #2d3748; padding-bottom: 15px; margin-bottom: 30px; }
+    .header-simulado h1 { margin: 0 0 10px 0; font-size: 24px; }
+    .badge { font-size: 13px; background: #4a5568; padding: 4px 10px; border-radius: 4px; color: #cbd5e0; margin-right: 8px; }
+
+    /* Caixa da Questão */
+    .questao-box { background: #2d3748; border-radius: 8px; padding: 24px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .enunciado { font-size: 16px; line-height: 1.6; margin-bottom: 20px; color: #e2e8f0; }
+
+    /* Opções de Alternativas */
+    .alternativas-lista { display: flex; flex-direction: column; gap: 12px; }
+    .alternativa-item {
+      display: flex; align-items: center; background: #1a202c; border: 1px solid #4a5568;
+      border-radius: 6px; padding: 14px; cursor: pointer; transition: all 0.2s ease;
+    }
+    .alternativa-item:hover { background: #343f56; border-color: #3182ce; }
+    .alternativa-item.selecionada { background: #2b6cb0; border-color: #63b3ed; }
+    
+    .alternativa-item input[type="radio"] { display: none; }
+    .letra-circulo {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%; background: #4a5568;
+      margin-right: 15px; font-weight: bold; font-size: 14px; flex-shrink: 0;
+    }
+    .alternativa-item.selecionada .letra-circulo { background: #fff; color: #2b6cb0; }
+    .texto-alternativa { font-size: 15px; color: #edf2f7; }
+
+    /* Botão de Enviar */
+    .btn-enviar {
+      background: #48bb78; color: white; padding: 12px 24px; border: none;
+      border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px;
+      width: 100%; transition: background 0.2s; margin-top: 10px;
+    }
+    .btn-enviar:hover { background: #38a169; }
+    .voltar-link { color: #a0aec0; text-decoration: none; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .voltar-link:hover { color: #fff; }

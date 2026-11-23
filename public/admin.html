@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Criador de Formulários (Admin)</title>
+  <link rel="stylesheet" href="./assets/css/admin.css">
+</head>
+<body>
+
+  <div class="forms-builder">
+    <a href="/" style="text-decoration:none; color:#673ab7; font-weight:bold;">← Voltar para Home</a>
+    <br><br>
+
+    <div class="form-header-card">
+      <h1>Criar Novo Questionário</h1>
+      <div class="input-group">
+        <label for="materiaSelect">Selecione a Matéria:</label>
+        <select id="materiaSelect" class="input-field" required>
+          <option value="">A carregar matérias...</option>
+        </select>
+      </div>
+      <input type="text" id="tituloQuestionario" class="input-field" placeholder="Título do Simulado (Ex: Simulado ENEM 2024)" required>
+      <select id="dificuldade" class="input-field">
+        <option value="Fácil">Dificuldade: Fácil</option>
+        <option value="Médio" selected>Dificuldade: Médio</option>
+        <option value="Difícil">Dificuldade: Difícil</option>
+      </select>
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <button type="button" class="btn-add" onclick="adicionarQuestao()">+ Adicionar Questão</button>
+
+    <button type="button" class="btn-save" onclick="salvarFormularioCompleto()">💾 Salvar Questionário Completo</button>
+  </div>
+
+  <script>
+    let contadorQuestoes = 0;
+
+    async function carregarMaterias() {
+      const select = document.getElementById('materiaSelect');
+      try {
+        const res = await fetch('/api/materias');
+        const materias = await res.json();
+
+        select.innerHTML = '<option value="">-- Selecione uma Matéria --</option>';
+
+        materias.forEach(materia => {
+          const option = document.createElement('option');
+          option.value = materia.id_materia;
+          option.textContent = `${materia.nome} (${materia.area_conhecimento})`;
+          select.appendChild(option);
+        });
+      } catch (err) {
+        select.innerHTML = '<option value="">Erro ao carregar matérias</option>';
+      }
+    }
+
+    carregarMaterias();
+
+    function adicionarQuestao() {
+      contadorQuestoes++;
+      const container = document.getElementById('questionsContainer');
+      
+      const qDiv = document.createElement('div');
+      qDiv.className = 'question-card';
+      qDiv.id = `q_card_${contadorQuestoes}`;
+
+      qDiv.innerHTML = `
+        <h3>Questão ${contadorQuestoes}</h3>
+        <textarea class="input-field enunciado" rows="2" placeholder="Digite o enunciado da questão..." required></textarea>
+        
+        <p style="font-size:13px; color:#666; margin-bottom:8px;">Marque o rádio da alternativa <b>CORRETA</b>:</p>
+        
+        <div class="option-row">
+          <input type="radio" name="correta_${contadorQuestoes}" value="A" checked>
+          <input type="text" class="altA" placeholder="Opção A" required>
+        </div>
+        <div class="option-row">
+          <input type="radio" name="correta_${contadorQuestoes}" value="B">
+          <input type="text" class="altB" placeholder="Opção B" required>
+        </div>
+        <div class="option-row">
+          <input type="radio" name="correta_${contadorQuestoes}" value="C">
+          <input type="text" class="altC" placeholder="Opção C" required>
+        </div>
+        <div class="option-row">
+          <input type="radio" name="correta_${contadorQuestoes}" value="D">
+          <input type="text" class="altD" placeholder="Opção D" required>
+        </div>
+      `;
+
+      container.appendChild(qDiv);
+    }
+
+    adicionarQuestao();
+
+    async function salvarFormularioCompleto() {
+      const id_materia = document.getElementById('materiaSelect').value;
+      const titulo = document.getElementById('tituloQuestionario').value;
+      const dificuldade = document.getElementById('dificuldade').value;
+
+      if (!id_materia) {
+        alert("Por favor, selecione uma matéria!");
+        return;
+      }
+
+      if (!titulo) {
+        alert("Por favor, digite o título do simulado!");
+        return;
+      }
+
+      const cards = document.querySelectorAll('.question-card');
+      const questoes = [];
+
+      cards.forEach((card, index) => {
+        const i = index + 1;
+        const enunciado = card.querySelector('.enunciado').value;
+        const correta = card.querySelector(`input[name="correta_${i}"]:checked`).value;
+
+        questoes.push({
+          enunciado: enunciado,
+          alternativas: [
+            { letra: 'A', descricao: card.querySelector('.altA').value, correta: correta === 'A' ? 1 : 0 },
+            { letra: 'B', descricao: card.querySelector('.altB').value, correta: correta === 'B' ? 1 : 0 },
+            { letra: 'C', descricao: card.querySelector('.altC').value, correta: correta === 'C' ? 1 : 0 },
+            { letra: 'D', descricao: card.querySelector('.altD').value, correta: correta === 'D' ? 1 : 0 }
+          ]
+        });
+      });
+
+      const res = await fetch('/api/admin/salvar-formulario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_materia, titulo, dificuldade, questoes })
+      });
+
+      const data = await res.json();
+      alert(data.mensagem || data.erro);
+      if (res.ok) window.location.reload();
+    }
+  </script>
+</body>
+</html>

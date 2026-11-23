@@ -1,0 +1,115 @@
+.left{
+    flex:2;
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:
+        0 4px 8px rgba(0,0,0,0.05),
+        0 8px 20px rgba(0,0,0,0.08);
+}
+
+.right{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:20px;
+}
+
+.top,
+.bottom{
+    flex:1;
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:
+        0 4px 8px rgba(0,0,0,0.05),
+        0 8px 20px rgba(0,0,0,0.08);
+}
+
+.left,
+.top,
+.bottom{
+    border-top:5px solid var(--primary);
+}
+
+/* Container principal do Histórico */
+.card-historico {
+  background: #2d3748; /* Cor escura combinando com seu painel */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  
+  /* Configuração para a animação suave */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* Efeito Hover: Quando o mouse passa por cima */
+.card-historico:hover {
+  transform: scale(1.03); /* Aumenta o tamanho levemente (3%) */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Dá efeito de profundidade/sombra */
+  background: #343f56; /* Clarea um pouco o fundo para dar destaque */
+}
+
+/* Título interno do card */
+.card-historico h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: 2px solid #4a5568;
+  padding-bottom: 8px;
+}
+
+/* Linha de cada simulado respondido */
+.item-historico-resumido {
+  border-bottom: 1px solid #4a5568;
+  padding: 10px 0;
+}
+
+.item-historico-resumido:last-child {
+  border-bottom: none; /* Remove a linha do último item */
+}
+
+/* Nome do simulado */
+.item-historico-resumido strong {
+  display: block;
+  font-size: 14px;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Corta o texto com '...' se for muito grande */
+}
+
+/* Alinhamento dos pontos e da data embaixo do nome */
+.item-historico-resumido .meta {
+  display: flex;
+  justify-content: space-between;
+  color: #a0aec0;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Cor verde para destacar a pontuação */
+.item-historico-resumido .pontos {
+  color: #68d391;
+  font-weight: bold;
+}
+
+/* Texto de carregamento ou vazio */
+.carregando {
+  color: #a0aec0;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
+}

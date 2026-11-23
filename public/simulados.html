@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulados Disponíveis</title>
+  <link rel="stylesheet" href="./assets/css/simulados.css">
+</head>
+<body>
+
+  <div class="container">
+    <a href="/" style="color: #cbd5e0; text-decoration: none;">← Voltar para Home</a>
+    <h1 style="margin-top: 15px;">Simulados</h1>
+
+    <div class="filter-bar">
+      <input type="text" id="inputBusca" placeholder="Pesquisar simulado por nome..." oninput="filtrarSimulados()">
+      
+      <select id="selectMateria" onchange="filtrarSimulados()">
+        <option value="">Todas as Matérias</option>
+      </select>
+    </div>
+
+    <div id="listaSimulados">
+      <p>A carregar simulados...</p>
+    </div>
+  </div>
+
+  <script>
+    let todosSimulados = [];
+
+    async function inicializarPagina() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const materiaIdUrl = urlParams.get('materiaId');
+
+      const resMat = await fetch('/api/materias');
+      const materias = await resMat.json();
+      const select = document.getElementById('selectMateria');
+
+      materias.forEach(m => {
+        const option = document.createElement('option');
+        option.value = m.id_materia;
+        option.textContent = m.nome;
+        select.appendChild(option);
+      });
+
+      if (materiaIdUrl) {
+        select.value = materiaIdUrl;
+      }
+
+      await carregarSimulados();
+    }
+
+    async function carregarSimulados() {
+      const res = await fetch('/api/simulados');
+      todosSimulados = await res.json();
+      filtrarSimulados();
+    }
+
+    function filtrarSimulados() {
+      const busca = document.getElementById('inputBusca').value.toLowerCase();
+      const materiaId = document.getElementById('selectMateria').value;
+
+      const filtrados = todosSimulados.filter(sim => {
+        const bateNome = sim.titulo.toLowerCase().includes(busca);
+        const bateMateria = materiaId === "" || sim.id_materia == materiaId;
+        return bateNome && bateMateria;
+      });
+
+      renderizarLista(filtrados);
+    }
+
+    function renderizarLista(lista) {
+      const container = document.getElementById('listaSimulados');
+      if (lista.length === 0) {
+        container.innerHTML = '<p style="color:#a0aec0;">Nenhum simulado encontrado.</p>';
+        return;
+      }
+
+      container.innerHTML = lista.map(sim => `
+        <div class="simulado-card">
+          <div>
+            <h3 style="margin: 0 0 5px 0;">${sim.titulo}</h3>
+            <span style="font-size:12px; background:#4a5568; padding:3px 8px; border-radius:4px;">${sim.nome_materia}</span>
+            <span style="font-size:12px; color:#cbd5e0; margin-left:8px;">Dificuldade: ${sim.dificuldade}</span>
+          </div>
+          <a href="/createForms.html?id=${sim.id_questionario}" class="btn-iniciar">Iniciar</a>
+        </div>
+      `).join('');
+    }
+
+    inicializarPagina();
+  </script>
+</body>
+</html>

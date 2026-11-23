@@ -1,0 +1,43 @@
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    margin: 0;
+}
+
+header{
+    background: var(--primary);
+    padding: 16px 24px;
+
+    display:flex;
+    gap:12px;
+
+    align-items:center;
+}
+
+.container{
+    flex:1;
+    display:flex;
+}
+
+nav{
+    width:250px;
+    background: var(--sidebar);
+    padding:20px;
+}
+
+main{
+    flex:1;
+
+    padding:24px;
+
+    display:flex;
+    gap:24px;
+
+    background: var(--bg);
+}
+
+footer{
+    background: var(--sidebar);
+    height:50px;
+}

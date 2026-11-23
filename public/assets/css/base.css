@@ -1,0 +1,26 @@
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --sidebar:#1e293b;
+
+    --bg:#f1f5f9;
+
+    --card:#ffffff;
+
+    --text:#1f2937;
+
+    --success:#22c55e;
+}
+
+body{
+    font-family:
+        Inter,
+        Segoe UI,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+}

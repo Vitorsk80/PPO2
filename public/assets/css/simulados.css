@@ -1,0 +1,18 @@
+    body { font-family: system-ui, sans-serif; background: #1a202c; color: #fff; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+    .filter-bar input, .filter-bar select {
+      padding: 10px; border-radius: 6px; border: 1px solid #4a5568;
+      background: #2d3748; color: #fff; flex: 1; font-size: 15px;
+    }
+    .simulado-card {
+      background: #2d3748; border-radius: 8px; padding: 16px;
+      margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+    }
+    
+    .btn-iniciar {
+      background: #3182ce; color: white; padding: 8px 16px; border: none;
+      border-radius: 6px; cursor: pointer; text-decoration: none; font-weight: bold;
+    }
+    .btn-iniciar:hover { background: #2b6cb0; }

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Site PPO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/component.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <script src="./assets/js/login.js" defer></script>
+  </head>
+
+  <body>
+    
+    <div class="modal" id="modalLogin">
+
+        <div class="modal-content">
+
+            <span class="fechar">&times;</span>
+
+            <h2>Entrar</h2>
+
+            <form>
+
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input
+                        type="email"
+                        placeholder="Digite seu e-mail"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input
+                        type="password"
+                        placeholder="Digite sua senha"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Entrar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+  
+
+    <header>
+       <a href="index.html">Home</a>
+       <a href="historico.html">Histórico</a>
+       <a href="ranking.html">Ranking</a>
+       <a href="perfil.html">Perfil</a>
+        <a href="admin.html">Criação</a>
+    </header>
+
+    <div class="container">
+
+        <nav>
+            <ul class="menu">
+                <li><a href="/simulados.html?materiaId=1">Português</a></li>
+
+                <li><a href="/simulados.html?materiaId=2">História</a></li>
+                <li><a href="/simulados.html?materiaId=3">Geografia</a></li>
+                <li><a href="/simulados.html?materiaId=4">Filosofia</a></li>
+                <li><a href="/simulados.html?materiaId=5">Sociologia</a></li>
+
+                <li><a href="/simulados.html?materiaId=6">Biologia</a></li>
+                <li><a href="/simulados.html?materiaId=7">Física</a></li>
+                <li><a href="/simulados.html?materiaId=8">Química</a></li>
+
+                <li><a href="/simulados.html?materiaId=9">Matemática</a></li>
+            </ul>
+        </nav>
+
+        <main>
+
+    <div class="left">
+        <h2>Olá, João 👋</h2>
+
+        <div class="stats">
+            <div class="card">
+                <h3>XP</h3>
+                <p>1250</p>
+            </div>
+
+            <div class="card">
+                <h3>Nível</h3>
+                <p>7</p>
+            </div>
+
+            <div class="card">
+                <h3>Streak</h3>
+                <p>12 🔥</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+
+        <div class="card-historico" onclick="window.location.href='/historico'">
+        <h2>Histórico</h2>
+        
+        <div id="listaHistoricoResumido">
+            <p class="carregando">Carregando últimas tentativas...</p>
+        </div>
+        </div>
+
+
+        <div class="bottom">
+            Gráficos
+        </div>
+
+    </div>
+
+        </main>
+
+        <footer>
+
+        </footer>
+
+  </body>
+  <script>
+    async function carregarHistoricoResumido() {
+  const container = document.getElementById('listaHistoricoResumido');
+  
+  try {
+    const res = await fetch('/api/usuario/historico-resumido');
+    const tentativas = await res.json();
+
+    if (tentativas.length === 0) {
+      container.innerHTML = '<p style="color:#a0aec0; font-size:14px;">Nenhum simulado feito ainda.</p>';
+      return;
+    }
+
+    container.innerHTML = tentativas.map(tentativa => {
+      const dataFormatada = new Date(tentativa.data_realizacao).toLocaleDateString('pt-BR');
+      
+      return `
+        <div class="item-historico-resumido">
+          <strong>${tentativa.titulo_simulado}</strong>
+          <div class="meta">
+            <span>Nota: ${tentativa.pontuacao} pts</span>
+            <span>${dataFormatada}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  } catch (error) {
+    container.innerHTML = '<p style="color:#f56565; font-size:14px;">Erro ao carregar dados.</p>';
+  }
+}
+
+carregarHistoricoResumido();
+
+  </script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resolvendo Simulado</title>
+  <link rel="stylesheet" href="./assets/css/createForms.css">
+  <script src="assets/js/createForms.js" defer></script>
+</head>
+<body>
+
+  <div class="container">
+    <a href="/simulados" class="voltar-link">← Voltar para Simulados</a>
+    
+    <div class="header-simulado">
+      <h1 id="simuladoTitulo">Carregando simulado...</h1>
+      <span id="simuladoMateria" class="badge">--</span>
+      <span id="simuladoDificuldade" class="badge">--</span>
+    </div>
+
+    <form id="formSimulado" onsubmit="enviarRespostas(event)">
+      <div id="containerQuestoes">
+      </div>
+      <button type="submit" class="btn-enviar" id="btnEnviar" style="display: none;">Finalizar e Enviar Respostas</button>
+    </form>
+  </div>
+
+  <script>
+    const tempoInicio = Date.now();
+  </script>
+</body>
+</html>
